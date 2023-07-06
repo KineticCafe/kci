@@ -28,8 +28,8 @@ func isValidEnvironment(env string) bool {
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "kcs-infra",
-	Short: "KCS infrastructure and application management",
+	Use:   "kci",
+	Short: "KCS infrastructure management and reporting",
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
@@ -55,7 +55,7 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.kcs-infra.yaml)")
+	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.kci.yaml)")
 	rootCmd.PersistentFlags().StringVarP(&environment, "environment", "e", "dit", "Set the environment. Can be 'dit', 'stage', or 'prod'")
 	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "verbose output")
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "d", false, "debug output")
