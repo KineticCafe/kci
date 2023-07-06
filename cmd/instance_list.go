@@ -17,11 +17,6 @@ import (
 var instanceListCmd = &cobra.Command{
 	Use:   "list",
 	Short: "list KCS instances",
-	Long: `Lists KCS instances based on various criteria. Filters include:
-
-- instance name
-- SSM enabled
-`,
 	Run: func(cmd *cobra.Command, args []string) {
 		filter, _ := cmd.Flags().GetString("filter")
 		includeAll, _ := cmd.Flags().GetBool("all")

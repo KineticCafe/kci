@@ -18,56 +18,58 @@ import (
 var instanceSSMCmd = &cobra.Command{
 	Use:   "ssm",
 	Short: "list KCS instances that are managed by SSM",
-	Run: func(cmd *cobra.Command, args []string) {
-		filter, _ := cmd.Flags().GetString("filter")
-		disabled, _ := cmd.Flags().GetBool("disabled")
+	Run:   listSSMCommand,
+}
 
-		// Get with main filters
-		manager, err := ec2_instance.NewManager()
-		if err != nil {
-			log.Fatal(err)
+func listSSMCommand(cmd *cobra.Command, args []string) {
+	filter, _ := cmd.Flags().GetString("filter")
+	disabled, _ := cmd.Flags().GetBool("disabled")
+
+	// Get with main filters
+	manager, err := ec2_instance.NewManager()
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = manager.FetchInstances(filter)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	manager.Filter(ec2_instance.IsRunningFilter)
+
+	err = manager.FetchSSMDetails()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	manager.Filter(func(i ec2_instance.EC2Instance) bool {
+		if disabled {
+			return !i.IsSSM
+		} else {
+			return i.IsSSM
 		}
-		err = manager.FetchInstances(filter)
-		if err != nil {
-			log.Fatal(err)
-		}
+	})
 
-		manager.Filter(ec2_instance.IsRunningFilter)
+	// Display
+	sort.Slice(manager.Instances, func(i, j int) bool {
+		iAge, _ := strconv.Atoi(manager.Instances[i].InstanceAge)
+		jAge, _ := strconv.Atoi(manager.Instances[j].InstanceAge)
+		return iAge < jAge
+	})
 
-		err = manager.FetchSSMDetails()
-		if err != nil {
-			log.Fatal(err)
-		}
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{"Name", "ID", "SSM Enabled", "Status"})
 
-		manager.Filter(func(i ec2_instance.EC2Instance) bool {
-			if disabled {
-				return !i.IsSSM
-			} else {
-				return i.IsSSM
-			}
+	for _, instance := range manager.Instances {
+		table.Append([]string{
+			instance.Name,
+			instance.ID,
+			strconv.FormatBool(instance.IsSSM),
+			instance.Status,
 		})
+	}
 
-		// Display
-		sort.Slice(manager.Instances, func(i, j int) bool {
-			iAge, _ := strconv.Atoi(manager.Instances[i].InstanceAge)
-			jAge, _ := strconv.Atoi(manager.Instances[j].InstanceAge)
-			return iAge < jAge
-		})
-
-		table := tablewriter.NewWriter(os.Stdout)
-		table.SetHeader([]string{"Name", "ID", "SSM Enabled", "Status"})
-
-		for _, instance := range manager.Instances {
-			table.Append([]string{
-				instance.Name,
-				instance.ID,
-				strconv.FormatBool(instance.IsSSM),
-				instance.Status,
-			})
-		}
-
-		table.Render()
-	},
+	table.Render()
 }
 
 func init() {
