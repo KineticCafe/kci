@@ -28,6 +28,17 @@ Before you can install and use `kci`, you must have the following installed on y
 - Go 1.16 or higher
 - Git
 
+## Documentation
+
+To view the documentation of all packages (including KineticCommerce) in the
+application, you can use `godoc`.
+
+```bash
+godoc --http :8082
+```
+
+Visiting `http://localhost:8082` will display the documentation.
+
 ## Installation
 
 ### Building from Source
