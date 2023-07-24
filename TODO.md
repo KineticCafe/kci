@@ -11,7 +11,7 @@ kci
   - [X] ssm - list instances that are SSM managed
   - [X] reboot - reboot a single instance
   - [X] scan - report on OS, reboot status, security update count
-- [.] ssm - commands for dealing with SSM
+- [ ] ssm - commands for dealing with SSM
   - [X] list - an alias of `instance ssm`
   - [ ] session - open a session (ssh without bastion)
   - [ ] patch - list available patches
