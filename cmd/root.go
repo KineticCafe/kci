@@ -14,7 +14,7 @@ var (
 	debug             bool
 	verbose           bool
 	environment       string
-	validEnvironments = []string{"dit", "stage", "prod"}
+	validEnvironments = []string{"dit", "stage", "prod", "prod-eu"}
 )
 
 func isValidEnvironment(env string) bool {

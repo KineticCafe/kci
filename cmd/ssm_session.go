@@ -15,9 +15,9 @@ var ssmSessionCmd = &cobra.Command{
 	Use:   "session",
 	Short: "Start an SSM session for a given instance. AWS CLI required.",
 	Run: func(cmd *cobra.Command, args []string) {
-		instanceID, _ := cmd.Flags().GetString("instance")
+		instanceID, _ := cmd.Flags().GetString("instance-id")
 		if instanceID == "" {
-			log.Fatalf("instance is a required parameter")
+			log.Fatalf("instance-id is a required parameter")
 		}
 
 		c := exec.Command("aws", "ssm", "start-session", "--target", instanceID)
@@ -33,7 +33,7 @@ var ssmSessionCmd = &cobra.Command{
 func init() {
 	// this SHOULD work as a simple alias
 	ssmCmd.AddCommand(ssmSessionCmd)
-	ssmSessionCmd.Flags().StringP("instance", "i", "", "The instance to connect to - required")
+	ssmSessionCmd.Flags().StringP("instance-id", "i", "", "The instance to connect to - required")
 
 	// Here you will define your flags and configuration settings.
 
