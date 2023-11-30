@@ -37,7 +37,11 @@ var instanceAgingCmd = &cobra.Command{
 		}
 
 		// Filter
-		manager.FetchAMIAge()
+		err = manager.FetchAMIAge()
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		manager.Filter(func(instance ec2_instance.EC2Instance) bool {
 			iAge, _ := strconv.Atoi(instance.InstanceAge)
 			aAge, _ := strconv.Atoi(instance.AMI_Age)
@@ -72,8 +76,8 @@ var instanceAgingCmd = &cobra.Command{
 
 func init() {
 	instanceCmd.AddCommand(instanceAgingCmd)
-	instanceAgingCmd.Flags().String("filter", "", "Filter instances by name")
-	instanceAgingCmd.Flags().Bool("all", false, "Include all statuses in the list")
+	instanceAgingCmd.Flags().StringP("filter", "f", "", "Filter instances by name")
+	instanceAgingCmd.Flags().BoolP("all", "a", false, "Include all statuses in the list")
 
 	// Here you will define your flags and configuration settings.
 

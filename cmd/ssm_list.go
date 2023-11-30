@@ -14,7 +14,7 @@ var ssmListCmd = &cobra.Command{
 func init() {
 	// this SHOULD work as a simple alias
 	ssmCmd.AddCommand(ssmListCmd)
-	ssmListCmd.Flags().String("filter", "", "Filter instances by name")
+	ssmListCmd.Flags().StringP("filter", "f", "", "Filter instances by name")
 	ssmListCmd.Flags().Bool("disabled", false, "Display SSM disabled instead")
 
 	// Here you will define your flags and configuration settings.

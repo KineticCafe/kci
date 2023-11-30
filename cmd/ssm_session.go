@@ -26,7 +26,10 @@ var ssmSessionCmd = &cobra.Command{
 		c.Stdin = os.Stdin
 
 		// Run the command. This will block until the session is finished.
-		c.Run()
+		err := c.Run()
+		if err != nil {
+			log.Fatal(err)
+		}
 	},
 }
 
