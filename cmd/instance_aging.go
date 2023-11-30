@@ -37,7 +37,11 @@ var instanceAgingCmd = &cobra.Command{
 		}
 
 		// Filter
-		manager.FetchAMIAge()
+		err = manager.FetchAMIAge()
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		manager.Filter(func(instance ec2_instance.EC2Instance) bool {
 			iAge, _ := strconv.Atoi(instance.InstanceAge)
 			aAge, _ := strconv.Atoi(instance.AMI_Age)
