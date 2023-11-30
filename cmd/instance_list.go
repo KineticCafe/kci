@@ -61,8 +61,8 @@ var instanceListCmd = &cobra.Command{
 
 func init() {
 	instanceCmd.AddCommand(instanceListCmd)
-	instanceListCmd.Flags().String("filter", "", "Filter instances by name")
-	instanceListCmd.Flags().Bool("all", false, "Include all statuses in the list")
+	instanceListCmd.Flags().StringP("filter", "f", "", "Filter instances by name")
+	instanceListCmd.Flags().BoolP("all", "a", false, "Include all statuses in the list")
 	instanceListCmd.Flags().Bool("ssm", false, "Only show instances with SSM enabled")
 	instanceListCmd.Flags().Bool("no-ssm", false, "Only show instances without SSM enabled")
 

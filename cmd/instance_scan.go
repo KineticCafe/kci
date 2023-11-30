@@ -86,10 +86,10 @@ var instanceScanCmd = &cobra.Command{
 
 func init() {
 	instanceCmd.AddCommand(instanceScanCmd)
-	instanceScanCmd.Flags().String("filter", "", "Filter instances by name")
+	instanceScanCmd.Flags().StringP("filter", "f", "", "Filter instances by name")
 	instanceScanCmd.Flags().StringP("jump", "j", "", "jumpbox server address")
 	instanceScanCmd.Flags().StringP("jumpuser", "u", "", "jumpbox user")
-	instanceScanCmd.Flags().Bool("all", false, "Include all statuses in the list")
+	instanceScanCmd.Flags().BoolP("all", "a", false, "Include all statuses in the list")
 	instanceScanCmd.Flags().Bool("reboot-only", false, "Display only servers that need a reboot")
 
 	// Here you will define your flags and configuration settings.

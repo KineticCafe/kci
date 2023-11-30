@@ -74,7 +74,7 @@ func listSSMCommand(cmd *cobra.Command, args []string) {
 
 func init() {
 	instanceCmd.AddCommand(instanceSSMCmd)
-	instanceSSMCmd.Flags().String("filter", "", "Filter instances by name")
+	instanceSSMCmd.Flags().StringP("filter", "f", "", "Filter instances by name")
 	instanceSSMCmd.Flags().Bool("disabled", false, "Display SSM disabled instead")
 
 	// Here you will define your flags and configuration settings.
