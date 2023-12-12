@@ -22,9 +22,9 @@ type Release struct {
 	Timestamp string      `json:"timestamp"`
 }
 
-var sysinfoPlatformCmd = &cobra.Command{
-	Use:   "platform",
-	Short: "report on the status of the platform service",
+var sysinfoReleaseCmd = &cobra.Command{
+	Use:   "release",
+	Short: "display release information for deployed services",
 	Run: func(cmd *cobra.Command, args []string) {
 		/*
 			TODO Move to function when used more than once...
@@ -75,7 +75,7 @@ var sysinfoPlatformCmd = &cobra.Command{
 }
 
 func init() {
-	sysinfoCmd.AddCommand(sysinfoPlatformCmd)
+	sysinfoCmd.AddCommand(sysinfoReleaseCmd)
 	//instanceSSMCmd.Flags().String("filter", "", "Filter instances by name")
 	//instanceSSMCmd.Flags().Bool("disabled", false, "Display SSM disabled instead")
 
