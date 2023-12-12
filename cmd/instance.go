@@ -4,7 +4,7 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/spf13/cobra"
 )
@@ -14,8 +14,10 @@ var instanceCmd = &cobra.Command{
 	Use:   "instance",
 	Short: "Subcommands for interacting with KCS instances",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("instance called")
-		fmt.Println(environment)
+		err := cmd.Help()
+		if err != nil {
+			log.Fatal(err)
+		}
 	},
 }
 

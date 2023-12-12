@@ -4,23 +4,25 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/spf13/cobra"
 )
 
 // instanceCmd represents the instance command
-var statusCmd = &cobra.Command{
-	Use:   "status",
-	Short: "Subcommands for querying KCS service status",
+var sysinfoCmd = &cobra.Command{
+	Use:   "sysinfo",
+	Short: "Subcommands for querying KCS system information",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("status called")
-		fmt.Println(environment)
+		err := cmd.Help()
+		if err != nil {
+			log.Fatal(err)
+		}
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(statusCmd)
+	rootCmd.AddCommand(sysinfoCmd)
 
 	// Here you will define your flags and configuration settings.
 

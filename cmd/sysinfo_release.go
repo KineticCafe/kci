@@ -14,7 +14,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-type Package struct {
+type Release struct {
 	Elixir    interface{} `json:"elixir"`
 	Hashref   string      `json:"hashref"`
 	Name      string      `json:"name"`
@@ -22,9 +22,9 @@ type Package struct {
 	Timestamp string      `json:"timestamp"`
 }
 
-var statusPlatformCmd = &cobra.Command{
-	Use:   "platform",
-	Short: "report on the status of the platform service",
+var sysinfoReleaseCmd = &cobra.Command{
+	Use:   "release",
+	Short: "display current release information",
 	Run: func(cmd *cobra.Command, args []string) {
 		/*
 			TODO Move to function when used more than once...
@@ -57,7 +57,7 @@ var statusPlatformCmd = &cobra.Command{
 				log.Fatal(err)
 			}
 
-			var result map[string]Package
+			var result map[string]Release
 			err = json.Unmarshal(body, &result)
 			if err != nil {
 				log.Fatal(err)
@@ -75,7 +75,7 @@ var statusPlatformCmd = &cobra.Command{
 }
 
 func init() {
-	statusCmd.AddCommand(statusPlatformCmd)
+	sysinfoCmd.AddCommand(sysinfoReleaseCmd)
 	//instanceSSMCmd.Flags().String("filter", "", "Filter instances by name")
 	//instanceSSMCmd.Flags().Bool("disabled", false, "Display SSM disabled instead")
 
