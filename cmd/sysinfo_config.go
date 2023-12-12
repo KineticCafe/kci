@@ -21,7 +21,7 @@ type Config struct {
 
 var sysinfoConfigCmd = &cobra.Command{
 	Use:   "config",
-	Short: "display config package for deployed services",
+	Short: "display current config package",
 	Run: func(cmd *cobra.Command, args []string) {
 		/*
 			TODO Move to function when used more than once...

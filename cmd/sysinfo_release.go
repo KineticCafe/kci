@@ -24,7 +24,7 @@ type Release struct {
 
 var sysinfoReleaseCmd = &cobra.Command{
 	Use:   "release",
-	Short: "display release information for deployed services",
+	Short: "display current release information",
 	Run: func(cmd *cobra.Command, args []string) {
 		/*
 			TODO Move to function when used more than once...
