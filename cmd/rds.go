@@ -6,7 +6,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// instanceCmd represents the instance command
 var rdsCmd = &cobra.Command{
 	Use:   "rds",
 	Short: "Subcommands for interacting with KCS databases",

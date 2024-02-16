@@ -4,19 +4,11 @@ package database
 import (
 	"context"
 	"fmt"
-	"sort"
 	"strings"
-	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/rds"
 )
-
-type SnapshotInfo struct {
-	ID      string    `json:"id"`
-	Created time.Time `json:"created"`
-}
 
 type DatabaseInfo struct {
 	ID               string         `json:"id"`
@@ -24,34 +16,6 @@ type DatabaseInfo struct {
 	MultiAZ          bool           `json:"multi_az"`
 	SnapshotsEnabled bool           `json:"snapshots_enabled"`
 	Snapshots        []SnapshotInfo `json:"snapshots"`
-}
-
-type RDSManager struct {
-	Databases []DatabaseInfo
-	Client    *rds.Client
-}
-
-// NewManagerWithClient creates a new RDSManager with a supplied aws client.
-func NewManagerWithClient(client *rds.Client) *RDSManager {
-	return &RDSManager{
-		Databases: []DatabaseInfo{},
-		Client:    client,
-	}
-}
-
-// NewManager creates a new RDSManager using the default AWS config and client
-func NewManager() (*RDSManager, error) {
-	cfg, err := config.LoadDefaultConfig(context.TODO())
-
-	if err != nil {
-		return nil, fmt.Errorf("unable to load SDK config: %w", err)
-	}
-
-	client := rds.NewFromConfig(cfg)
-
-	mgr := NewManagerWithClient(client)
-
-	return mgr, nil
 }
 
 // FetchDatabases connects to an AWS and fetches descriptions of all
@@ -87,36 +51,6 @@ func (mgr *RDSManager) Fetch(filter string) error {
 	}
 
 	return nil
-}
-
-func (mgr *RDSManager) FetchSingle(identifier string) ([]DatabaseInfo, error) {
-	return []DatabaseInfo{}, nil
-}
-
-func (mgr *RDSManager) FetchSnapshots(identifier string) ([]SnapshotInfo, error) {
-	snapshots := []SnapshotInfo{}
-
-	snapshotsResp, err := mgr.Client.DescribeDBSnapshots(context.TODO(), &rds.DescribeDBSnapshotsInput{
-		DBInstanceIdentifier: aws.String(identifier),
-	})
-
-	if err != nil {
-		return snapshots, fmt.Errorf("Unable to list DB snapshots for %s: %v", identifier, err)
-	}
-
-	for _, snapshot := range snapshotsResp.DBSnapshots {
-		snapshotInfo := SnapshotInfo{
-			ID:      *snapshot.DBSnapshotIdentifier,
-			Created: *snapshot.SnapshotCreateTime,
-		}
-		snapshots = append(snapshots, snapshotInfo)
-	}
-
-	sort.Slice(snapshots, func(i, j int) bool {
-		return snapshots[i].Created.Before(snapshots[j].Created)
-	})
-
-	return snapshots, nil
 }
 
 func (db *DatabaseInfo) LatestSnapshot() (SnapshotInfo, error) {
