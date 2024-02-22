@@ -11,7 +11,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// instanceAgingCmd represents the instanceAging command
 var instanceSSMCmd = &cobra.Command{
 	Use:   "ssm",
 	Short: "list KCS instances that are managed by SSM",
@@ -73,14 +72,4 @@ func init() {
 	instanceCmd.AddCommand(instanceSSMCmd)
 	instanceSSMCmd.Flags().StringP("filter", "f", "", "Filter instances by name")
 	instanceSSMCmd.Flags().Bool("disabled", false, "Display SSM disabled instead")
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// instanceAgingCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// instanceAgingCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

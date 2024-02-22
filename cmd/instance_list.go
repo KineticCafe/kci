@@ -10,7 +10,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// instanceListCmd represents the instanceList command
 var instanceListCmd = &cobra.Command{
 	Use:   "list",
 	Short: "list KCS instances",
@@ -42,10 +41,7 @@ var instanceListCmd = &cobra.Command{
 			table.Append([]string{
 				instance.Name,
 				instance.ID,
-				//instance.AMI_ID,
 				instance.InstanceAge,
-				//instance.AMI_Age,
-				//strconv.FormatBool(instance.IsSSM),
 				instance.Status,
 				instance.PublicIP,
 				instance.PrivateIP,
@@ -62,14 +58,4 @@ func init() {
 	instanceListCmd.Flags().BoolP("all", "a", false, "Include all statuses in the list")
 	instanceListCmd.Flags().Bool("ssm", false, "Only show instances with SSM enabled")
 	instanceListCmd.Flags().Bool("no-ssm", false, "Only show instances without SSM enabled")
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// instanceListCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// instanceListCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

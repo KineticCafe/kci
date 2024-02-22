@@ -23,7 +23,6 @@ func isValidEnvironment(env string) bool {
 	return false
 }
 
-// rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "kci",
 	Short: "KCS infrastructure management and reporting",
@@ -38,8 +37,6 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	err := rootCmd.Execute()
 	if err != nil {
@@ -48,17 +45,8 @@ func Execute() {
 }
 
 func init() {
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-
-	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.kci.yaml)")
 	rootCmd.PersistentFlags().StringVarP(&environment, "environment", "e", "dit", "Set the environment. Can be 'dit', 'stage', or 'prod'")
 	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "verbose output")
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "d", false, "debug output")
-	//rootCmd.PersistentFlags().SetAnnotation("environment", cobra.BashCompOneOf, validEnvironements)
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
