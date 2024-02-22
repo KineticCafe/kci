@@ -11,6 +11,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema represents a sqitch migration as returned by the `status/sqitch` endpoint.
 type Schema struct {
 	Change    string `json:"change"`
 	ChangeID  string `json:"change_id"`
@@ -79,16 +80,4 @@ var sysinfoSchemaCmd = &cobra.Command{
 
 func init() {
 	sysinfoCmd.AddCommand(sysinfoSchemaCmd)
-	//instanceSSMCmd.Flags().string("filter", "", "Filter instances by name")
-	//instanceSSMCmd.Flags().Bool("disabled", false, "Display SSM disabled instead")
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// instanceAgingCmd.PersistentFlags().string("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// instanceAgingCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

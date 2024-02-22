@@ -11,7 +11,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// instanceAgingCmd represents the instanceAging command
 var instanceAgingCmd = &cobra.Command{
 	Use:   "aging",
 	Short: "list KCS instances that are a little long in the tooth",
@@ -75,14 +74,4 @@ func init() {
 	instanceCmd.AddCommand(instanceAgingCmd)
 	instanceAgingCmd.Flags().StringP("filter", "f", "", "Filter instances by name")
 	instanceAgingCmd.Flags().BoolP("all", "a", false, "Include all statuses in the list")
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// instanceAgingCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// instanceAgingCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
