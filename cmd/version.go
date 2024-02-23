@@ -6,10 +6,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// BuildTime should be set using ldflags during the build process.
-// e.g. -ldflags "-X 'github.com/KineticCommerce/kci/cmd.BuildTime=$(date)'"
-var BuildTime = "not set"
-
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Version and build information",
