@@ -12,6 +12,7 @@ var (
 	verbose           bool
 	environment       string
 	validEnvironments = []string{"dit", "stage", "prod", "prod-eu"}
+	BuildTime         = "not set"
 )
 
 func isValidEnvironment(env string) bool {
@@ -37,7 +38,9 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-func Execute() {
+func Execute(buildTime string) {
+	BuildTime = buildTime
+
 	err := rootCmd.Execute()
 	if err != nil {
 		os.Exit(1)

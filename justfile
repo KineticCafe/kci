@@ -21,12 +21,12 @@ run *args='':
 # build the application
 build: lint test
   go build \
-  -ldflags "-X 'github.com/KineticCommerce/kci/cmd.BuildTime=$(date -u +'%Y-%m-%dT%H:%M:%SZ')'" 
+  -ldflags "-X 'main.BuildTime=$(date -u +'%Y-%m-%dT%H:%M:%SZ')'" 
 
 # install application locally
 install: lint test
   go install \
-  -ldflags "-X 'github.com/KineticCommerce/kci/cmd.BuildTime=$(date -u +'%Y-%m-%dT%H:%M:%SZ')'" 
+  -ldflags "-X 'main.BuildTime=$(date -u +'%Y-%m-%dT%H:%M:%SZ')'" 
 
 # Create and upload a release
 release:
