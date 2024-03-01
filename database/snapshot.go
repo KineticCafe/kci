@@ -12,6 +12,7 @@ import (
 
 type SnapshotInfo struct {
 	ID      string    `json:"id"`
+	Size    int32     `json:"size"`
 	Created time.Time `json:"created"`
 }
 
@@ -30,6 +31,7 @@ func (mgr *RDSManager) FetchSnapshots(identifier string) ([]SnapshotInfo, error)
 		snapshotInfo := SnapshotInfo{
 			ID:      *snapshot.DBSnapshotIdentifier,
 			Created: *snapshot.SnapshotCreateTime,
+			Size:    *snapshot.AllocatedStorage,
 		}
 		snapshots = append(snapshots, snapshotInfo)
 	}
