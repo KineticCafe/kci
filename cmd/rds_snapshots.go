@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -26,13 +27,14 @@ var rdsSnapshotCmd = &cobra.Command{
 		}
 
 		table := tablewriter.NewWriter(os.Stdout)
-		table.SetHeader([]string{"ID", "Created At"})
+		table.SetHeader([]string{"ID", "Created At", "Size (GiB)"})
 
 		for _, snapshot := range snapshots {
 
 			table.Append([]string{
 				snapshot.ID,
 				snapshot.Created.Format("2006-01-02 15:04:05"),
+				fmt.Sprint(snapshot.Size),
 			})
 		}
 
